@@ -28,7 +28,8 @@ public class UserController {
     @Operation(summary = "查询全部用户")
     @GetMapping
     public Result<List<User>> list() {
-        return Result.ok(userService.findAll());
+        List<User> users = userService.findAll();
+        return Result.ok(users);
     }
 
     @Operation(summary = "导出用户列表 CSV")
