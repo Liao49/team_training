@@ -27,4 +27,8 @@ public interface UserMapper {
 
     @Delete("DELETE FROM user WHERE id = #{id}")
     int deleteById(@Param("id") Long id);
+
+    /** RBAC：查询用户拥有的角色编码（如 ADMIN/USER），JOIN user_role 与 role */
+    @Select("SELECT r.code FROM user_role ur JOIN role r ON ur.role_id = r.id WHERE ur.user_id = #{userId}")
+    List<String> selectRolesByUserId(@Param("userId") Long userId);
 }

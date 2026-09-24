@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
@@ -53,6 +54,7 @@ public class UserController {
     }
 
     @Operation(summary = "新增用户")
+    @PreAuthorize("hasRole('ADMIN')")            // 仅管理员可新增
     @PostMapping
     public Result<User> create(@RequestBody @Valid User user) {
         return Result.ok(userService.create(user));
@@ -67,6 +69,7 @@ public class UserController {
     }
 
     @Operation(summary = "删除用户")
+    @PreAuthorize("hasRole('ADMIN')")            // 仅管理员可删除
     @DeleteMapping("/{id}")
     public Result<Void> delete(@PathVariable Long id) {
         userService.delete(id);

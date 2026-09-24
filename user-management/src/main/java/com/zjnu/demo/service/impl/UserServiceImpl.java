@@ -4,6 +4,7 @@ import com.zjnu.demo.common.BusinessException;
 import com.zjnu.demo.entity.User;
 import com.zjnu.demo.mapper.UserMapper;
 import com.zjnu.demo.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +14,11 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
+    private final PasswordEncoder encoder;       // 实验四：BCrypt 加密入库
 
-    public UserServiceImpl(UserMapper userMapper) {
+    public UserServiceImpl(UserMapper userMapper, PasswordEncoder encoder) {
         this.userMapper = userMapper;
+        this.encoder = encoder;
     }
 
     @Override
@@ -38,6 +41,8 @@ public class UserServiceImpl implements UserService {
         if (userMapper.selectByUsername(user.getUsername()) != null) {
             throw new BusinessException("用户名已存在");
         }
+        // 安全基线：密码必须 BCrypt 加密后入库（自带随机盐）
+        user.setPassword(encoder.encode(user.getPassword()));
         userMapper.insert(user);
         return userMapper.selectById(user.getId());   // 回读，拿到数据库生成的 create_time
     }
