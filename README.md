@@ -24,6 +24,19 @@ npm install
 npm run dev
 ```
 
+## 接口清单
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | /api/users | 查询全部用户（order=id\|username 指定排序） |
+| GET | /api/users/{id} | 按 ID 查询用户 |
+| POST | /api/users | 新增用户（用户名/密码/邮箱非空校验，密码 BCrypt 加密） |
+| PUT | /api/users/{id} | 更新用户 |
+| DELETE | /api/users/{id} | 删除用户 |
+| GET | /api/users/export | 导出用户列表 CSV |
+
+接口文档：启动后端后访问 http://localhost:8080/swagger-ui.html（springdoc 自动生成）。
+
 ## CI
 
 推送到 main 或发起 PR 时，GitHub Actions 自动执行 `mvn -B verify`（编译 + 单元测试），
