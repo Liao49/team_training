@@ -59,4 +59,17 @@ public class UserServiceImpl implements UserService {
         }
         userMapper.deleteById(id);
     }
+
+    @Override
+    public String exportCsv() {
+        List<User> users = userMapper.selectAll();
+        StringBuilder sb = new StringBuilder("id,username,email,create_time\n");
+        for (User u : users) {
+            sb.append(u.getId()).append(',')
+              .append(u.getUsername()).append(',')
+              .append(u.getEmail() == null ? "" : u.getEmail()).append(',')
+              .append(u.getCreateTime()).append('\n');
+        }
+        return sb.toString();
+    }
 }
