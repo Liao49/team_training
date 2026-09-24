@@ -6,8 +6,12 @@ import com.zjnu.demo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Tag(name = "user-controller", description = "用户管理接口")
@@ -29,6 +33,16 @@ public class UserController {
             users.sort(java.util.Comparator.comparing(User::getUsername));
         }
         return Result.ok(users);
+    }
+
+    @Operation(summary = "导出用户列表 CSV")
+    @GetMapping("/export")
+    public ResponseEntity<byte[]> export() {
+        String csv = userService.exportCsv();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=users.csv")
+                .contentType(MediaType.parseMediaType("text/csv;charset=UTF-8"))
+                .body(csv.getBytes(StandardCharsets.UTF_8));
     }
 
     @Operation(summary = "按 ID 查询用户")
