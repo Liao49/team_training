@@ -21,10 +21,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Operation(summary = "查询全部用户")
+    @Operation(summary = "查询全部用户（order=id|username 指定排序）")
     @GetMapping
-    public Result<List<User>> list() {
-        return Result.ok(userService.findAll());
+    public Result<List<User>> list(@RequestParam(defaultValue = "id") String order) {
+        List<User> users = userService.findAll();
+        if ("username".equals(order)) {
+            users.sort(java.util.Comparator.comparing(User::getUsername));
+        }
+        return Result.ok(users);
     }
 
     @Operation(summary = "按 ID 查询用户")
