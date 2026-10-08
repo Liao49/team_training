@@ -1,12 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import UserList from '@/views/UserList.vue'
 import Login from '@/views/Login.vue'
+import Ask from '@/views/Ask.vue'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/login', name: 'login', component: Login },
-    { path: '/', name: 'user-list', component: UserList }
+    { path: '/', name: 'user-list', component: UserList },
+    { path: '/ask', name: 'ask', component: Ask }
   ]
 })
 

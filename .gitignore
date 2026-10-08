@@ -8,6 +8,10 @@ screenshots/
 scripts/
 *.log
 
+# LLM 服务生成产物（可由 build_index.py 重建）
+llm-service/knowledge/index.json
+__pycache__/
+
 # IDE
 .idea/
 *.iml

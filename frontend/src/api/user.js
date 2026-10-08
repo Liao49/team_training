@@ -49,6 +49,11 @@ export const userApi = {
   remove: (id)       => request.delete(`/users/${id}`)
 }
 
+/** 实验五：智能问答（RAG 生成耗时较长，单独放宽超时到 60s） */
+export const askApi = {
+  ask: (question) => request.post('/ask', { question }, { timeout: 60000 })
+}
+
 /** 解析 JWT payload（Base64URL），读取角色信息 */
 export function parseTokenRoles(token) {
   try {

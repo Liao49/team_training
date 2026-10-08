@@ -59,6 +59,7 @@ onMounted(load)
     <div class="toolbar">
       <el-button v-if="isAdmin" type="primary" @click="openCreate">新增用户</el-button>
       <el-button @click="load">刷新</el-button>
+      <el-button type="success" plain @click="router.push('/ask')">学习搭子问答</el-button>
       <el-button style="margin-left: auto" @click="logout">退出登录</el-button>
     </div>
 
