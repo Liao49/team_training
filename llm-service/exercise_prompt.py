@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
-"""提示工程小练习（实验五步骤 1）：给定需求 → 稳定输出 JSON。
-
-对比两种 System 提示的输出稳定性：
-- 严格提示：字段定义 + 少样本示例 + "只输出 JSON" 约束 + temperature=0；
-- 宽松提示：无结构约束，temperature=0.7。
-"""
+"""提示工程小练习（实验五步骤 1）：对比严格/宽松两种提示输出 JSON 的稳定性。"""
 import json
 
 from config import client, CHAT_MODEL

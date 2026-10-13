@@ -17,7 +17,7 @@ public interface UserService {
     void delete(Long id);
 
     /**
-     * 导出全部用户为 CSV 文本（实验三：feature/user-export）
+     * 导出全部用户为 CSV（实验三）
      */
     String exportCsv();
 }

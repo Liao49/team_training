@@ -7,8 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * 滑动窗口限流器（实验五：/api/ask 每用户每分钟最多 5 次）。
- * 课程规模下全局锁足够；更大规模可改为按 key 分片锁或 Redis 实现。
+ * 滑动窗口限流器（实验五：每用户每分钟最多 5 次）
  */
 public final class RateLimiter {
 

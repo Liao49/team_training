@@ -15,11 +15,7 @@ import java.time.Duration;
 import java.util.Map;
 
 /**
- * 智能问答服务（实验五）：把 AI 能力作为"功能模块"接入既有工程。
- * 1. 复用实验四 PromptGuard：拦截提示注入 + &lt;user_input&gt; 定界符包裹；
- * 2. 每用户限流 5 次/分钟（大模型调用成本防护）；
- * 3. 转调 Python RAG 服务（FastAPI），30s 读超时；
- * 4. 日志脱敏：只记问题长度与哈希，不落原始内容；异常统一降级提示。
+ * 智能问答服务（实验五）：限流 + PromptGuard 校验后，转调 Python RAG 服务
  */
 @Service
 public class AskService {
@@ -41,8 +37,8 @@ public class AskService {
         if (!limiter.tryAcquire(username)) {
             throw new BusinessException("提问过于频繁，请一分钟后再试");
         }
-        String safe = PromptGuard.sanitize(question);     // 注入拦截 + 定界符包裹
-        // 日志脱敏：只记长度与哈希，避免用户问题内容落日志
+        String safe = PromptGuard.sanitize(question);
+        // 日志脱敏：不落原始问题，只记长度和哈希
         log.info("ask: user={}, len={}, hash={}", username,
                 question.length(), Integer.toHexString(question.hashCode()));
         try {

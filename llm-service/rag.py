@@ -9,10 +9,7 @@ INDEX = TfIdfIndex.load("knowledge/index.json")
 
 
 def retrieve(question: str, k: int = 5):
-    """提问向量化 → 余弦相似度排序 → top-k 资料块。
-
-    课程文档仅 16 块，取 top-5 以保证"目标 + 步骤要点"这类跨块信息能全部进入上下文。
-    """
+    """向量化提问 → 余弦排序 → top-k 资料块（文档少，默认取 5 块）。"""
     return INDEX.search(question, k)
 
 

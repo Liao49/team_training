@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * 学习搭子智能问答（实验五）：任意登录用户可用（RBAC 不限角色），
- * 未登录由 Security 过滤链统一 401。
+ * 智能问答接口（实验五），登录即可用
  */
 @Tag(name = "ask-controller", description = "智能问答接口（实验五）")
 @RestController
@@ -29,7 +28,7 @@ public class AskController {
 
     public AskController(AskService askService) { this.askService = askService; }
 
-    /** 问答请求体：参数校验防止脏数据进入 LLM 链路 */
+    /** 问答请求体 */
     public record AskRequest(@NotBlank(message = "问题不能为空")
                              @Size(max = 500, message = "问题长度不能超过500字")
                              String question) {}

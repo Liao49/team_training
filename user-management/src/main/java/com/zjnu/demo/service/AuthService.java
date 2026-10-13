@@ -32,7 +32,7 @@ public class AuthService {
         return jwtUtil.generate(user.getId(), user.getUsername(), roles);
     }
 
-    /** /api/users/me：按用户名回查当前登录用户（密码字段序列化时已隐藏） */
+    /** 按用户名回查当前登录用户 */
     public User loadByUsername(String username) {
         return userMapper.selectByUsername(username);
     }

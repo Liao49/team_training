@@ -23,7 +23,7 @@ public class AuthController {
 
     public AuthController(AuthService authService) { this.authService = authService; }
 
-    /** 登录请求体：参数校验防止脏数据进入认证流程 */
+    /** 登录请求体 */
     public record LoginRequest(@NotBlank(message = "用户名不能为空") String username,
                                @NotBlank(message = "密码不能为空") String password) {}
 

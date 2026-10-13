@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         if (userMapper.selectByUsername(user.getUsername()) != null) {
             throw new BusinessException("用户名已存在");
         }
-        // 安全基线：密码必须 BCrypt 加密后入库（自带随机盐）
+        // 密码 BCrypt 加密后入库（自带随机盐）
         user.setPassword(encoder.encode(user.getPassword()));
         userMapper.insert(user);
         return userMapper.selectById(user.getId());   // 回读，拿到数据库生成的 create_time

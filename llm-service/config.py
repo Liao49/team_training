@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
-"""LLM 客户端配置（实验五）。
-
-密钥安全约定：
-- ZHIPU_API_KEY 只从环境变量读取；终端会话未继承时从 HKCU 用户环境（setx 写入处）读取；
-- 密钥绝不写入代码、日志或 git 仓库，报告截图全程脱敏。
-"""
+"""LLM 客户端配置（实验五）。API Key 只从环境变量读取，不写入代码。"""
 import os
 import winreg
 
@@ -13,6 +8,7 @@ CHAT_MODEL = "glm-4-flash"                           # 免费聊天模型，满�
 
 
 def load_api_key() -> str:
+    # 优先读环境变量；读不到再从注册表用户环境取（setx 写入的位置）
     key = os.environ.get("ZHIPU_API_KEY")
     if key:
         return key

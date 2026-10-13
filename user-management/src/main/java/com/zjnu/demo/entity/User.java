@@ -8,7 +8,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * 用户实体，对应 user 表（map-underscore-to-camel-case 自动映射 createTime/create_time）
+ * 用户实体，对应 user 表
  */
 @Data
 public class User {
